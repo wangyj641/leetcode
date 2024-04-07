@@ -26,9 +26,31 @@
  * @param {string[]} strs
  * @return {string[][]}
  */
-var groupAnagrams = function(strs) {
+var groupAnagrams = function (strs) {
+  console.log('-----------------------------------------')
+  const map = new Object();
+  for (let s of strs) {
+    console.log(s);
+    const count = new Array(26).fill(0);
+    for (let c of s) {
+      //console.log(c);
+      count[c.charCodeAt() - 'a'.charCodeAt()]++;
+    }
+    console.log(count);
+    map[count] ? map[count].push(s) : map[count] = [s];
+  }
+  console.log(map);
+  console.log(Object.values(map));
 
-};
+  var compare = function (arr1, arr2) {
+    return arr1.length - arr2.length;
+  }
+
+  console.log((Object.values(map)).sort(compare));
+  return ((Object.values(map)).sort(compare));
+}
+
+
 // @QUESTION_END
 
 
@@ -38,11 +60,11 @@ var groupAnagrams = function(strs) {
 showLogs(
   groupAnagrams,
   {
-    data: [[  ["eat", "tea", "tan", "ate", "nat", "bat"]],[  [""]],[  ["a"]]],
+    data: [[["eat", "tea", "tan", "ate", "nat", "bat"]], [[""]], [["a"]]],
     structure: ["string[]"]
   },
   {
-    data: [ [["bat"],["nat","tan"],["ate","eat","tea"]], [[""]], [["a"]]],
+    data: [[["bat"], ["nat", "tan"], ["ate", "eat", "tea"]], [[""]], [["a"]]],
     structure: ["string[][]"]
   }
 )
