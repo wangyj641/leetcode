@@ -28,8 +28,24 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+var lengthOfLongestSubstring = function (s) {
+  const occ = new Set();
+  var len = s.length;
+  var start = 0;
+  var end = -1;
+  var max_len = 0;
+  for (start = 0; start < len; start++) {
+    if (start > 0) {
+      occ.delete(s[start - 1]);
+    }
+    while (end + 1 < len && !occ.has(s[end + 1])) {
+      end++;
+      occ.add(s[end]);
+    }
+    max_len = Math.max(max_len, end - start + 1);
+  }
 
+  return max_len;
 };
 // @QUESTION_END
 
@@ -40,11 +56,11 @@ var lengthOfLongestSubstring = function(s) {
 showLogs(
   lengthOfLongestSubstring,
   {
-    data: [[  "abcabcbb"],[  "bbbbb"],[  "pwwkew"]],
+    data: [["abcabcbb"], ["bbbbb"], ["pwwkew"]],
     structure: ["string"]
   },
   {
-    data: [ 3 , 1, 3],
+    data: [3, 1, 3],
     structure: ["number"]
   }
 )
